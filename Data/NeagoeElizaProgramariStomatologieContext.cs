@@ -19,5 +19,7 @@ namespace NeagoeElizaProgramariStomatologie.Data
         public DbSet<NeagoeElizaProgramariStomatologie.Models.Procedura> Procedura { get; set; } = default!;
 
         public DbSet<NeagoeElizaProgramariStomatologie.Models.Specializare> Specializare { get; set; } = default!;
+
+        public DbSet<NeagoeElizaProgramariStomatologie.Models.Medic> Medic { get; set; } = default!;
     }
 }
