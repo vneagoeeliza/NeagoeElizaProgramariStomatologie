@@ -28,7 +28,9 @@ namespace NeagoeElizaProgramariStomatologie.Pages.Medici
                 return NotFound();
             }
 
-            var medic = await _context.Medic.FirstOrDefaultAsync(m => m.ID == id);
+            var medic = await _context.Medic
+                .Include(i=>i.Specializare)
+                .FirstOrDefaultAsync(m => m.ID == id);
             if (medic == null)
             {
                 return NotFound();
@@ -36,6 +38,7 @@ namespace NeagoeElizaProgramariStomatologie.Pages.Medici
             else 
             {
                 Medic = medic;
+
             }
             return Page();
         }
