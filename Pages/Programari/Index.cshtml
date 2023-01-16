@@ -17,13 +17,13 @@
                 @Html.DisplayNameFor(model => model.Programare[0].DataProgramare)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Programare[0].Pacient)
+                @Html.DisplayNameFor(model => model.Programare[0].Pacient.FullName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Programare[0].Procedura)
+                @Html.DisplayNameFor(model => model.Programare[0].Procedura.NumeProcedura)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Programare[0].Medic)
+                @Html.DisplayNameFor(model => model.Programare[0].Medic.FullName)
             </th>
             <th></th>
         </tr>
@@ -35,13 +35,13 @@
                 @Html.DisplayFor(modelItem => item.DataProgramare)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Pacient.ID)
+                    @Html.DisplayFor(modelItem => item.Pacient.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Procedura.ID)
+                    @Html.DisplayFor(modelItem => item.Procedura.NumeProcedura)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Medic.ID)
+                    @Html.DisplayFor(modelItem => item.Medic.FullName)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

@@ -28,7 +28,11 @@ namespace NeagoeElizaProgramariStomatologie.Pages.Programari
                 return NotFound();
             }
 
-            var programare = await _context.Programare.FirstOrDefaultAsync(m => m.ID == id);
+            var programare = await _context.Programare
+                .Include(i => i.Pacient)
+                .Include(j => j.Procedura)
+                .Include(j=>j.Medic)
+                .FirstOrDefaultAsync(m => m.ID == id);
             if (programare == null)
             {
                 return NotFound();

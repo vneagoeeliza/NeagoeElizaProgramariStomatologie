@@ -36,9 +36,9 @@ namespace NeagoeElizaProgramariStomatologie.Pages.Programari
                 return NotFound();
             }
             Programare = programare;
-           ViewData["MedicID"] = new SelectList(_context.Medic, "ID", "ID");
-           ViewData["PacientID"] = new SelectList(_context.Pacient, "ID", "ID");
-           ViewData["ProceduraID"] = new SelectList(_context.Procedura, "ID", "ID");
+           ViewData["MedicID"] = new SelectList(_context.Medic, "ID", "FullName");
+           ViewData["PacientID"] = new SelectList(_context.Pacient, "ID", "FullName");
+           ViewData["ProceduraID"] = new SelectList(_context.Procedura, "ID", "NumeProcedura");
             return Page();
         }
 
