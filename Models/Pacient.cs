@@ -6,5 +6,6 @@
         public string PrenumePacient { get; set; }
         public string NumePacient { get; set; }
         public string TelefonPacient { get; set; }
+        public ICollection<Programare>? Programari { get; set; }
     }
 }
