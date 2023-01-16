@@ -9,5 +9,6 @@ namespace NeagoeElizaProgramariStomatologie.Models
         public string? NumeMedic { get; set; }
         public int? SpecializareID { get; set; }
         public Specializare? Specializare { get; set; }
+        public ICollection<Programare>? Programari { get; set; }
     }
 }
