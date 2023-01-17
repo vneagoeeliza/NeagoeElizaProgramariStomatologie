@@ -30,7 +30,8 @@ namespace NeagoeElizaProgramariStomatologie.Pages.Specializari
         {
             SpecializareData = new SpecializareIndexData();
             SpecializareData.Specializari = await _context.Specializare
-            .Include(i => i.Medici)
+            .Include(i => i.SpecializariMedici)
+            .ThenInclude(i=>i.Medic)
               
             .OrderBy(i => i.NumeSpecializare)
             .ToListAsync();
@@ -39,7 +40,7 @@ namespace NeagoeElizaProgramariStomatologie.Pages.Specializari
                 SpecializareID = id.Value;
                 Specializare specializare = SpecializareData.Specializari
                 .Where(i => i.ID == id.Value).Single();
-                SpecializareData.Medici = specializare.Medici;
+                SpecializareData.SpecializariMedici = specializare.SpecializariMedici;
             }
         }
     }

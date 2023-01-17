@@ -42,7 +42,7 @@
 }
     </tbody>
 </table>
-@if (Model.SpecializareData.Medici != null)
+@if (Model.SpecializareData.SpecializariMedici != null)
 {
         <h3>Medici avand specializarea selectata</h3>
         <table class="table">
@@ -58,10 +58,10 @@
 
                         <td>
                     @{
-                        foreach (var b in item.Medici)
+                        foreach (var b in item.SpecializariMedici)
                         {
 
-                            @b.FullName
+                            @b.Medic.FullName
 
                                             <br />
                         }

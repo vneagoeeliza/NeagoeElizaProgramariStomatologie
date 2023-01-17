@@ -15,7 +15,6 @@ namespace NeagoeElizaProgramariStomatologie.Models
             Required, StringLength(50, MinimumLength = 3)]
         [Display(Name = "Nume medic")]
           public string? NumeMedic { get; set; }
-        public Specializare? Specializare { get; set; }
         public ICollection<Programare>? Programari { get; set; }
         public ICollection<SpecializareMedic>? SpecializariMedic { get; set; }
         [Display(Name = "Nume Medic")]
