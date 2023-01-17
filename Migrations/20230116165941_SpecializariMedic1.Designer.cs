@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NeagoeElizaProgramariStomatologie.Data;
 
@@ -11,9 +12,11 @@ using NeagoeElizaProgramariStomatologie.Data;
 namespace NeagoeElizaProgramariStomatologie.Migrations
 {
     [DbContext(typeof(NeagoeElizaProgramariStomatologieContext))]
-    partial class NeagoeElizaProgramariStomatologieContextModelSnapshot : ModelSnapshot
+    [Migration("20230116165941_SpecializariMedic1")]
+    partial class SpecializariMedic1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,9 +170,11 @@ namespace NeagoeElizaProgramariStomatologie.Migrations
 
             modelBuilder.Entity("NeagoeElizaProgramariStomatologie.Models.Medic", b =>
                 {
-                    b.HasOne("NeagoeElizaProgramariStomatologie.Models.Specializare", null)
+                    b.HasOne("NeagoeElizaProgramariStomatologie.Models.Specializare", "Specializare")
                         .WithMany("Medici")
                         .HasForeignKey("SpecializareID");
+
+                    b.Navigation("Specializare");
                 });
 
             modelBuilder.Entity("NeagoeElizaProgramariStomatologie.Models.Programare", b =>

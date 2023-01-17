@@ -10,7 +10,7 @@ using NeagoeElizaProgramariStomatologie.Models;
 
 namespace NeagoeElizaProgramariStomatologie.Pages.Medici
 {
-    public class CreateModel : PageModel
+    public class CreateModel : SpecializariMedicPageModel
     {
         private readonly NeagoeElizaProgramariStomatologie.Data.NeagoeElizaProgramariStomatologieContext _context;
 
@@ -21,26 +21,43 @@ namespace NeagoeElizaProgramariStomatologie.Pages.Medici
 
         public IActionResult OnGet()
         {
-        ViewData["SpecializareID"] = new SelectList(_context.Specializare, "ID", "NumeSpecializare");
+            var medic = new Medic();
+            medic.SpecializariMedic = new List<SpecializareMedic>();
+            PopulateAssignedSpecializareData(_context, medic);
             return Page();
         }
 
         [BindProperty]
         public Medic Medic { get; set; } = default!;
-        
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string[] specializariSelectate)
         {
-          if (!ModelState.IsValid || _context.Medic == null || Medic == null)
+            var medicNou = new Medic();
+            if (specializariSelectate != null)
             {
-                return Page();
+                medicNou.SpecializariMedic = new List<SpecializareMedic>();
+                foreach (var specializare in specializariSelectate)
+                {
+                    var specializareAdaugata = new SpecializareMedic
+                    {
+                        SpecializareID = int.Parse(specializare)
+                    };
+                    medicNou.SpecializariMedic.Add(specializareAdaugata);
+                }
             }
-
-            _context.Medic.Add(Medic);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            if (await TryUpdateModelAsync<Medic>(
+            medicNou,
+            "Medic",
+            i => i.NumeMedic, i => i.PrenumeMedic))
+            {
+                _context.Medic.Add(medicNou);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
+            PopulateAssignedSpecializareData(_context, medicNou);
+            return Page();
         }
     }
 }

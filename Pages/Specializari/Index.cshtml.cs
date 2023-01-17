@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using NeagoeElizaProgramariStomatologie.Data;
 using NeagoeElizaProgramariStomatologie.Models;
+using NeagoeElizaProgramariStomatologie.Models.ViewModels;
 
 namespace NeagoeElizaProgramariStomatologie.Pages.Specializari
 {
@@ -20,12 +22,25 @@ namespace NeagoeElizaProgramariStomatologie.Pages.Specializari
         }
 
         public IList<Specializare> Specializare { get;set; } = default!;
+        public SpecializareIndexData SpecializareData { get; set; }
+        public int SpecializareID { get; set; }
+        public int MedicID { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(int? id, int? medicID)
         {
-            if (_context.Specializare != null)
+            SpecializareData = new SpecializareIndexData();
+            SpecializareData.Specializari = await _context.Specializare
+            .Include(i => i.SpecializariMedici)
+            .ThenInclude(i=>i.Medic)
+              
+            .OrderBy(i => i.NumeSpecializare)
+            .ToListAsync();
+            if (id != null)
             {
-                Specializare = await _context.Specializare.ToListAsync();
+                SpecializareID = id.Value;
+                Specializare specializare = SpecializareData.Specializari
+                .Where(i => i.ID == id.Value).Single();
+                SpecializareData.SpecializariMedici = specializare.SpecializariMedici;
             }
         }
     }

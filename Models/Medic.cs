@@ -5,17 +5,19 @@ namespace NeagoeElizaProgramariStomatologie.Models
 {
     public class Medic
     {
-        public int? ID { get; set; }
+        public int ID { get; set; }
+        [RegularExpression(@"^[A-Z][a-z]+$", ErrorMessage = "Prenumele autorului trebuie sa fie de forma 'Prenume'"),
+            Required, StringLength(50,MinimumLength = 3)]
+
         [Display(Name = "Prenume medic")]
-
         public string? PrenumeMedic { get; set; }
+        [RegularExpression(@"^[A-Z][a-z]+$", ErrorMessage = "Nume autorului trebuie sa fie de forma 'Nume'"),
+            Required, StringLength(50, MinimumLength = 3)]
         [Display(Name = "Nume medic")]
-
-        public string? NumeMedic { get; set; }
-        public int? SpecializareID { get; set; }
-        public Specializare? Specializare { get; set; }
+          public string? NumeMedic { get; set; }
         public ICollection<Programare>? Programari { get; set; }
-        [Display(Name = "Nume")]
+        public ICollection<SpecializareMedic>? SpecializariMedic { get; set; }
+        [Display(Name = "Nume Medic")]
         public string FullName
         {
             get

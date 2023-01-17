@@ -20,13 +20,26 @@ namespace NeagoeElizaProgramariStomatologie.Pages.Medici
         }
 
         public IList<Medic> Medic { get;set; } = default!;
+        public MedicData MedicD { get; set; }
+        public int MedicID { get; set; }
+        public int SpecializareID { get; set; }
 
-        public async Task OnGetAsync()
+
+        public async Task OnGetAsync(int? id, int? specializareID)
         {
-            if (_context.Medic != null)
+            MedicD = new MedicData();
+            MedicD.Medici = await _context.Medic
+                .Include(b => b.SpecializariMedic)
+                .ThenInclude(b => b.Specializare)
+                .AsNoTracking()
+                .OrderBy(b => b.PrenumeMedic)
+                .ToListAsync();
+            if (id != null)
             {
-                Medic = await _context.Medic
-                .Include(m => m.Specializare).ToListAsync();
+                MedicID = id.Value;
+                Medic medic = MedicD.Medici
+                    .Where(i=>i.ID == id.Value).Single();
+                MedicD.Specializari = medic.SpecializariMedic.Select(s => s.Specializare);
             }
         }
     }

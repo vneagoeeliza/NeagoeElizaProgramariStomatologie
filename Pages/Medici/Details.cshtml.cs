@@ -29,7 +29,6 @@ namespace NeagoeElizaProgramariStomatologie.Pages.Medici
             }
 
             var medic = await _context.Medic
-                .Include(i=>i.Specializare)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (medic == null)
             {

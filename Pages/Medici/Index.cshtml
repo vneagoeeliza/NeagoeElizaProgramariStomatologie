@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:int?}"
 @model NeagoeElizaProgramariStomatologie.Pages.Medici.IndexModel
 
 @{
@@ -20,23 +20,36 @@
                 @Html.DisplayNameFor(model => model.Medic[0].NumeMedic)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Medic[0].Specializare.NumeSpecializare)
+                @Html.DisplayNameFor(model => model.Medic[0].SpecializariMedic)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Medic) {
-        <tr>
+
+@foreach (var item in Model.MedicD.Medici) {
+    string selectedRow = "";
+ if (item.ID == Model.MedicID)
+ {
+ selectedRow = "table-success";
+ }
+ <tr class="@selectedRow">
+
+      
             <td>
                 @Html.DisplayFor(modelItem => item.PrenumeMedic)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NumeMedic)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Specializare.NumeSpecializare)
-            </td>
+                <td>
+                    @{
+                        foreach (var category in item.SpecializariMedic)
+                        {
+                            @category.Specializare.ID @: @category.Specializare.NumeSpecializare <br />
+                        }
+                    }
+                </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |

@@ -7,6 +7,6 @@ namespace NeagoeElizaProgramariStomatologie.Models
         public int ID { get; set; }
         [Display(Name = "Nume specializare")]
         public string NumeSpecializare { get; set; }
-        public ICollection<Medic>? Medici { get; set; }
+        public ICollection<SpecializareMedic>? SpecializariMedici { get; set; }
     }
 }
