@@ -19,13 +19,29 @@ namespace NeagoeElizaProgramariStomatologie.Pages.Pacienti
             _context = context;
         }
 
-        public IList<Pacient> Pacient { get;set; } = default!;
+        public IList<Pacient> Pacient { get; set; } = default!;
+        public PacientData PacientD { get; set; }
+        public int PacientID { get; set; }
+        public string CurrentFilter { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string searchString)
         {
-            if (_context.Pacient != null)
+            PacientD = new PacientData();
+            CurrentFilter = searchString;
+
             {
-                Pacient = await _context.Pacient.ToListAsync();
+                if (_context.Pacient != null)
+                {
+                    PacientD.Pacienti = await _context.Pacient.
+                        ToListAsync();
+
+                    if (!String.IsNullOrEmpty(searchString))
+                    {
+                        PacientD.Pacienti = PacientD.Pacienti.Where(s => s.NumePacient.Contains(searchString)
+
+                       || s.PrenumePacient.Contains(searchString));
+                    }
+                }
             }
         }
     }
