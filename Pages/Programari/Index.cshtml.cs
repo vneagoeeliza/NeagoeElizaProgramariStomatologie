@@ -19,16 +19,29 @@ namespace NeagoeElizaProgramariStomatologie.Pages.Programari
             _context = context;
         }
 
-        public IList<Programare> Programare { get;set; } = default!;
+        public IList<Programare> Programare { get; set; } = default!;
+        public ProgramariData ProgramariD { get; set; }
+        public string CurrentFilter { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string searchString)
         {
+            ProgramariD = new ProgramariData();
+            CurrentFilter = searchString;
+
             if (_context.Programare != null)
             {
-                Programare = await _context.Programare
+                ProgramariD.Programari = await _context.Programare
                 .Include(p => p.Medic)
                 .Include(p => p.Pacient)
                 .Include(p => p.Procedura).ToListAsync();
+            }
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                ProgramariD.Programari = ProgramariD.Programari.Where(s => s.Pacient.NumePacient.Contains(searchString)
+
+               || s.Pacient.PrenumePacient.Contains(searchString));
+
+
             }
         }
     }

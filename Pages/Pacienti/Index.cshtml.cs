@@ -13,7 +13,6 @@ using NeagoeElizaProgramariStomatologie.Models;
 namespace NeagoeElizaProgramariStomatologie.Pages.Pacienti
 {
     [Authorize(Roles = "Admin")]
-
     public class IndexModel : PageModel
     {
         private readonly NeagoeElizaProgramariStomatologie.Data.NeagoeElizaProgramariStomatologieContext _context;
@@ -26,13 +25,16 @@ namespace NeagoeElizaProgramariStomatologie.Pages.Pacienti
         public IList<Pacient> Pacient { get; set; } = default!;
         public PacientData PacientD { get; set; }
         public int PacientID { get; set; }
+        public string NumeSort { get; set; }
+        public string PrenumeSort { get; set; }
         public string CurrentFilter { get; set; }
 
-        public async Task OnGetAsync(string searchString)
+        public async Task OnGetAsync(string searchString, string sortOrder)
         {
             PacientD = new PacientData();
             CurrentFilter = searchString;
-
+            NumeSort = String.IsNullOrEmpty(sortOrder) ? "nume_desc" : "";
+            PrenumeSort = String.IsNullOrEmpty(sortOrder) ? "prenume_desc" : "";
             {
                 if (_context.Pacient != null)
                 {
@@ -41,9 +43,24 @@ namespace NeagoeElizaProgramariStomatologie.Pages.Pacienti
 
                     if (!String.IsNullOrEmpty(searchString))
                     {
-                        PacientD.Pacienti = PacientD.Pacienti.Where(s => s.NumePacient.Contains(searchString)
+                        PacientD.Pacienti = PacientD.Pacienti.Where(
+                            s => s.NumePacient != null && s.NumePacient.Contains(searchString)
 
-                       || s.PrenumePacient.Contains(searchString));
+                       ||  s.PrenumePacient != null &&  s.PrenumePacient.Contains(searchString)
+
+                       );
+                    }
+                    switch (sortOrder)
+                    {
+                        case "nume_desc":
+                            PacientD.Pacienti = PacientD.Pacienti.OrderByDescending(s =>
+                           s.NumePacient);
+                            break;
+                        case "prenume_desc":
+                            PacientD.Pacienti = PacientD.Pacienti.OrderByDescending(s =>
+                         s.PrenumePacient);
+                            break;
+
                     }
                 }
             }

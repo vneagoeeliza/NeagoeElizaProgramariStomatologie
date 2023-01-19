@@ -15,6 +15,8 @@ namespace NeagoeElizaProgramariStomatologie.Models
          StringLength(50, MinimumLength = 3)]
         public string? NumePacient { get; set; }
         [Display(Name = "Telefon Pacient")]
+        [RegularExpression(@"^\(?([0-9]{4})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$", ErrorMessage = "Telefonul trebuie sa fie de forma '0722-123-123' sau'0722.123.123' sau '0722 123 123'")]
+
         public string? TelefonPacient { get; set; }
         [Display(Name = "Email Pacient")]
 
