@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +12,8 @@ using NeagoeElizaProgramariStomatologie.Models;
 
 namespace NeagoeElizaProgramariStomatologie.Pages.Medici
 {
+    [Authorize(Roles = "Admin")]
+
     public class CreateModel : SpecializariMedicPageModel
     {
         private readonly NeagoeElizaProgramariStomatologie.Data.NeagoeElizaProgramariStomatologieContext _context;

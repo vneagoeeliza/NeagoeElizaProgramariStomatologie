@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,8 @@ using NeagoeElizaProgramariStomatologie.Models;
 
 namespace NeagoeElizaProgramariStomatologie.Pages.Programari
 {
+    [Authorize(Roles = "Admin")]
+
     public class DeleteModel : PageModel
     {
         private readonly NeagoeElizaProgramariStomatologie.Data.NeagoeElizaProgramariStomatologieContext _context;
@@ -29,13 +33,17 @@ namespace NeagoeElizaProgramariStomatologie.Pages.Programari
                 return NotFound();
             }
 
-            var programare = await _context.Programare.FirstOrDefaultAsync(m => m.ID == id);
+            var programare = await _context.Programare
+                .Include(i => i.Pacient)
 
+                .Include(j => j.Procedura)
+                .Include(j => j.Medic)
+                .FirstOrDefaultAsync(m => m.ID == id);
             if (programare == null)
             {
                 return NotFound();
             }
-            else 
+            else
             {
                 Programare = programare;
             }
