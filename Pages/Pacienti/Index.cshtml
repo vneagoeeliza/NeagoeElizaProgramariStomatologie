@@ -23,11 +23,15 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th> 
+                <a asp-page="./Index" asp-route-sortOrder="@Model.PrenumeSort">
                 @Html.DisplayNameFor(model => model.Pacient[0].PrenumePacient)
+                </a>
             </th>
-            <th>
+            <th colspan ="2">
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NumeSort">
                 @Html.DisplayNameFor(model => model.Pacient[0].NumePacient)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Pacient[0].TelefonPacient)
