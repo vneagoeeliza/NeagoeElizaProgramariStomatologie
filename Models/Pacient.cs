@@ -25,5 +25,6 @@ namespace NeagoeElizaProgramariStomatologie.Models
                 return PrenumePacient + " " + NumePacient;
             }
         }
+
     }
 }
