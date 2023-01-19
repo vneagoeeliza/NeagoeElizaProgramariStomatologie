@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NeagoeElizaProgramariStomatologie.Data;
 
@@ -11,9 +12,11 @@ using NeagoeElizaProgramariStomatologie.Data;
 namespace NeagoeElizaProgramariStomatologie.Migrations
 {
     [DbContext(typeof(NeagoeElizaProgramariStomatologieContext))]
-    partial class NeagoeElizaProgramariStomatologieContextModelSnapshot : ModelSnapshot
+    [Migration("20230119091822_emailPacient")]
+    partial class emailPacient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,17 +57,21 @@ namespace NeagoeElizaProgramariStomatologie.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("EmailPacient")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NumePacient")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("PrenumePacient")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("TelefonPacient")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
