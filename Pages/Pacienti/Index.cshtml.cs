@@ -43,9 +43,12 @@ namespace NeagoeElizaProgramariStomatologie.Pages.Pacienti
 
                     if (!String.IsNullOrEmpty(searchString))
                     {
-                        PacientD.Pacienti = PacientD.Pacienti.Where(s => s.NumePacient.Contains(searchString)
+                        PacientD.Pacienti = PacientD.Pacienti.Where(
+                            s => s.NumePacient != null && s.NumePacient.Contains(searchString)
 
-                       || s.PrenumePacient.Contains(searchString));
+                       ||  s.PrenumePacient != null &&  s.PrenumePacient.Contains(searchString)
+
+                       );
                     }
                     switch (sortOrder)
                     {
